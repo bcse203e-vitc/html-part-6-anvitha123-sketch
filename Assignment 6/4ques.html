@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .form-container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 2px solid #3a87ad;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+    }
+    #addHobbyBtn {
+      background-color: #3a87ad;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .hobby-input {
+      width: 100%;
+      padding: 7px;
+      font-size: 15px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+    }
+    .validation-msg {
+      color: red;
+      font-size: 13px;
+      margin-top: 4px;
+      min-height: 18px;
+    }
+    .hobby-field {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="hobbyForm">
+      <div id="hobbyList"></div>
+      <button type="button" id="addHobbyBtn">Add Hobby</button>
+    </form>
+  </div>
+
+  <script>
+    const hobbyListDiv = document.getElementById('hobbyList');
+    const addHobbyBtn = document.getElementById('addHobbyBtn');
+
+    addHobbyBtn.onclick = function () {
+      const idx = hobbyListDiv.children.length + 1;
+      const div = document.createElement('div');
+      div.className = 'hobby-field';
+
+      div.innerHTML = `
+        <input type="text" class="hobby-input" id="hobby${idx}" placeholder="Enter hobby #${idx}" />
+        <div id="hobby${idx}-msg" class="validation-msg"></div>
+      `;
+
+      hobbyListDiv.appendChild(div);
+
+      const input = div.querySelector('input');
+      const msg = div.querySelector('div');
+
+      input.oninput = function () {
+        const pattern = /^[A-Za-z\s]+$/;
+        if (this.value === '' || pattern.test(this.value)) {
+          msg.textContent = '';
+        } else {
+          msg.textContent = 'Only alphabets and spaces allowed!';
+        }
+      };
+    };
+  </script>
+</body>
+</html>
