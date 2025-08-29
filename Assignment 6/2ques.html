@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .form-container {
+      max-width: 350px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 2px solid #57b8ff;
+      border-radius: 8px;
+      background: #f7f9fe;
+      font-family: Arial, sans-serif;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 6px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .message {
+      font-size: 15px;
+      margin-top: 4px;
+      margin-bottom: 0;
+      min-height: 20px;
+      transition: color 0.2s;
+      font-family: inherit;
+    }
+    .success {
+      color: #23a523;
+    }
+    .error {
+      color: #ee2c2c;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form>
+      <label for="email">Email:</label>
+      <input type="email" id="email" autocomplete="off" placeholder="Enter your email" />
+      <div id="email-msg" class="message"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('email').onblur = function() {
+      const value = this.value;
+      const isValid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value);
+      const msgDiv = document.getElementById('email-msg');
+      if (value === '') {
+        msgDiv.textContent = '';
+        msgDiv.className = 'message';
+      } else if (isValid) {
+        msgDiv.textContent = 'Valid Email!';
+        msgDiv.className = 'message success';
+      } else {
+        msgDiv.textContent = 'Invalid Email!';
+        msgDiv.className = 'message error';
+      }
+    };
+  </script>
+</body>
+</html>
