@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Phone Number Validation</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px;">
+
+  <div style="background: #fff; padding: 20px; max-width: 400px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <form id="phoneForm" novalidate>
+      <label for="phone" style="display: block; margin-bottom: 8px;">Phone Number:</label>
+      <input type="text" id="phone" placeholder="(123) 456-7890 or 123-456-7890"
+             style="width: 100%; padding: 8px; box-sizing: border-box; margin-bottom: 10px;" />
+      <div id="phoneMessage" style="font-size: 0.9em; margin-top: -5px; margin-bottom: 10px;"></div>
+    </form>
+  </div>
+
+  <script>
+    const phoneInput = document.getElementById("phone");
+    const messageDiv = document.getElementById("phoneMessage");
+
+    const phoneRegex = /^(\(\d{3}\)\s|\d{3}-)\d{3}-\d{4}$/;
+
+    phoneInput.addEventListener("input", () => {
+      const value = phoneInput.value.trim();
+
+      if (phoneRegex.test(value)) {
+        messageDiv.textContent = "✅ Valid phone number.";
+        messageDiv.style.color = "green";
+      } else {
+        messageDiv.textContent = "❌ Invalid format. Use (123) 456-7890 or 123-456-7890.";
+        messageDiv.style.color = "red";
+      }
+    });
+  </script>
+
+</body>
+</html>
+
