@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      max-width: 450px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 2px solid #5a9bd5;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+      background: #f0f6fc;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+    select, button {
+      padding: 8px 12px;
+      font-size: 16px;
+      margin-right: 10px;
+      border-radius: 4px;
+      border: 1px solid #bbb;
+      cursor: pointer;
+    }
+    button {
+      background-color: #5a9bd5;
+      color: white;
+      border: none;
+    }
+    form {
+      margin-top: 20px;
+    }
+    .form-field {
+      margin-bottom: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .validation-msg {
+      font-size: 13px;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+    .valid {
+      color: green;
+    }
+    .invalid {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <label for="inputType">Select input type:</label>
+    <select id="inputType">
+      <option value="text">Text</option>
+      <option value="email">Email</option>
+      <option value="password">Password</option>
+    </select>
+    <button id="addBtn" type="button">Add</button>
+
+    <form id="dynamicForm" novalidate></form>
+  </div>
+
+  <script>
+    const inputTypeSelect = document.getElementById('inputType');
+    const addBtn = document.getElementById('addBtn');
+    const dynamicForm = document.getElementById('dynamicForm');
+
+    
+    const validators = {
+      text: val => val.trim().length > 0,
+      email: val => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val),
+      password: val => /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(val)
+    };
+
+    
+    const messages = {
+      text: 'Text cannot be empty',
+      email: 'Invalid email format',
+      password: 'Password must have 8+ chars, 1 uppercase & 1 number'
+    };
+
+    addBtn.addEventListener('click', () => {
+      const type = inputTypeSelect.value;
+      const idx = dynamicForm.children.length + 1;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'form-field';
+
+      wrapper.innerHTML = `
+        <input type="${type}" id="input${idx}" placeholder="Enter ${type}" />
+        <div id="msg${idx}" class="validation-msg"></div>
+      `;
+
+      dynamicForm.appendChild(wrapper);
+
+      const inputField = wrapper.querySelector('input');
+      const msgDiv = wrapper.querySelector('div');
+
+      inputField.addEventListener('input', () => {
+        const val = inputField.value;
+        if (validators[type](val)) {
+          msgDiv.textContent = 'Valid';
+          msgDiv.className = 'validation-msg valid';
+        } else {
+          msgDiv.textContent = messages[type];
+          msgDiv.className = 'validation-msg invalid';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Password Match Validation</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px;">
+
+  <div style="background: #fff; padding: 20px; max-width: 400px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <form id="passwordForm" novalidate>
+      <label for="password" style="display: block; margin-bottom: 8px;">Password:</label>
+      <input type="password" id="password"
+             style="width: 100%; padding: 8px; box-sizing: border-box; margin-bottom: 10px;" />
+
+      <label for="confirmPassword" style="display: block; margin-bottom: 8px;">Confirm Password:</label>
+      <input type="password" id="confirmPassword"
+             style="width: 100%; padding: 8px; box-sizing: border-box; margin-bottom: 10px;" />
+
+      <div id="matchMessage" style="font-size: 0.9em; margin-top: -5px; margin-bottom: 10px;"></div>
+    </form>
+  </div>
+
+  <script>
+    const passwordInput = document.getElementById("password");
+    const confirmInput = document.getElementById("confirmPassword");
+    const messageDiv = document.getElementById("matchMessage");
+
+    function checkMatch() {
+      const password = passwordInput.value;
+      const confirm = confirmInput.value;
+
+      if (password === "" && confirm === "") {
+        messageDiv.textContent = "";
+        return;
+      }
+
+      if (password === confirm) {
+        messageDiv.textContent = "✅ Passwords match.";
+        messageDiv.style.color = "green";
+      } else {
+        messageDiv.textContent = "❌ Passwords do not match.";
+        messageDiv.style.color = "red";
+      }
+    }
+
+    passwordInput.addEventListener("input", checkMatch);
+    confirmInput.addEventListener("input", checkMatch);
+  </script>
+
+</body>
+</html>

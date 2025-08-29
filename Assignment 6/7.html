@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .form-container {
+      max-width: 350px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 2px solid #4a90e2;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+      background: #f9faff;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+    }
+    .error-msg {
+      color: #d63434;
+      font-size: 14px;
+      min-height: 18px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="dateForm" novalidate>
+      <label for="dateInput">Enter Date (DD/MM/YYYY):</label>
+      <input type="text" id="dateInput" placeholder="DD/MM/YYYY" />
+      <div id="errorMsg" class="error-msg"></div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const dateForm = document.getElementById('dateForm');
+    const dateInput = document.getElementById('dateInput');
+    const errorMsg = document.getElementById('errorMsg');
+    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+    dateForm.addEventListener('submit', function(event) {
+      const dateValue = dateInput.value.trim();
+      if (!dateRegex.test(dateValue)) {
+        errorMsg.textContent = 'Error: Date must be in DD/MM/YYYY format.';
+        event.preventDefault();
+      } else {
+        errorMsg.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>

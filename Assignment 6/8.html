@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Live Hex Color Preview</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px;">
+
+  <div style="background: #fff; padding: 20px; max-width: 400px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <label for="hexInput" style="display: block; margin-bottom: 8px;">Enter Hex Color Code:</label>
+    
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <input type="text" id="hexInput"
+             placeholder="#FFFFFF"
+             style="flex: 1; padding: 8px; box-sizing: border-box;" />
+             
+      <div id="colorBox"
+           style="width: 40px; height: 40px; border: 1px solid #ccc; border-radius: 4px; background-color: #fff;"></div>
+    </div>
+
+    <div id="feedback" style="font-size: 0.9em; margin-top: 10px;"></div>
+  </div>
+
+  <script>
+    const hexInput = document.getElementById("hexInput");
+    const colorBox = document.getElementById("colorBox");
+    const feedback = document.getElementById("feedback");
+
+    const hexPattern = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+
+    hexInput.addEventListener("input", () => {
+      const value = hexInput.value.trim();
+
+      if (hexPattern.test(value)) {
+        colorBox.style.backgroundColor = value;
+        feedback.textContent = "✅ Valid hex code.";
+        feedback.style.color = "green";
+      } else {
+        colorBox.style.backgroundColor = "#fff";
+        feedback.textContent = "❌ Invalid hex code. Use #RGB or #RRGGBB format.";
+        feedback.style.color = "red";
+      }
+    });
+  </script>
+
+</body>
+</html>

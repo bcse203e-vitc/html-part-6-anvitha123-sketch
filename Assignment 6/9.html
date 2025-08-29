@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Continent-Country Dropdown</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px;">
+
+  <div style="background: #fff; padding: 20px; max-width: 400px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <label for="continent" style="display: block; margin-bottom: 8px;">Select Continent:</label>
+    <select id="continent"
+            style="width: 100%; padding: 8px; margin-bottom: 15px;">
+      <option value="">-- Choose Continent --</option>
+      <option value="Asia">Asia</option>
+      <option value="Europe">Europe</option>
+      <option value="Africa">Africa</option>
+      <option value="North America">North America</option>
+      <option value="South America">South America</option>
+      <option value="Australia">Australia</option>
+    </select>
+
+    <label for="country" style="display: block; margin-bottom: 8px;">Select Country:</label>
+    <select id="country"
+            style="width: 100%; padding: 8px;">
+      <option value="">-- Choose Country --</option>
+    </select>
+  </div>
+
+  <script>
+    const continentSelect = document.getElementById("continent");
+    const countrySelect = document.getElementById("country");
+
+    const continentCountryMap = {
+      "Asia": ["India", "China", "Japan", "Indonesia", "Thailand"],
+      "Europe": ["Germany", "France", "Italy", "Spain", "Netherlands"],
+      "Africa": ["Nigeria", "Kenya", "South Africa", "Egypt", "Ghana"],
+      "North America": ["United States", "Canada", "Mexico", "Cuba", "Panama"],
+      "South America": ["Brazil", "Argentina", "Colombia", "Chile", "Peru"],
+      "Australia": ["Australia", "New Zealand", "Fiji", "Papua New Guinea"]
+    };
+
+    continentSelect.addEventListener("change", function () {
+      const selectedContinent = continentSelect.value;
+      const countries = continentCountryMap[selectedContinent] || [];
+
+      // Clear previous options
+      countrySelect.innerHTML = '<option value="">-- Choose Country --</option>';
+
+      // Populate new options
+      countries.forEach(country => {
+        const option = document.createElement("option");
+        option.value = country;
+        option.textContent = country;
+        countrySelect.appendChild(option);
+      });
+    });
+  </script>
+
+</body>
+</html>
